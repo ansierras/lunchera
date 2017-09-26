@@ -1,0 +1,269 @@
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper" ng-class="theme.navBarColor">
+			<a href="#!" class="brand-logo valign-wrapper">
+				<span >TABLOO</span>
+			</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+
+	        	<li ng-repeat="(index, itemMenu) in menu" ng-class="menuClasses[index]"><a ng-click="goto(itemMenu.linkTo)"><i class="material-icons left">{{itemMenu.icon}}</i>{{itemMenu.name}}</a></li>
+	        	<li><a href="#!" style="height: 64px;" class="valign-wrapper dropdown-button" data-activates="dropdownPerfil">Mi Perfil<i class="material-icons right">arrow_drop_down</i> <img ng-src="{{user.photoURL}}" alt="" class="circle navBarImg white valign"/></a></li>
+	      	</ul>
+		</div>
+	</nav>
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light" ng-class="theme.navFabColor" ng-click="saveOffer()" id="edit">
+    	<i class="material-icons">save</i>
+    </a>
+</div>
+
+<div class="container">
+	<h4>Crear Oferta</h4>
+	<div class="divider"></div>
+	
+	<div class="row">
+		<div class="col m4">
+			<h5>¿Qué juego?</h5>
+			<div class="divider"></div>
+			<div class="col m12" ng-show="newOffer.game">
+				<div class="card small">
+					<div class="card-image">
+						<img ng-src="{{newOffer.game.thumbnail}}">
+					</div>
+					<div class="card-content">
+						<span class="activator grey-text text-darken-4">{{newOffer.game.name}}<i class="material-icons right">more_vert</i></span>
+					</div>
+					<div class="card-reveal">
+							<span class="card-title grey-text text-darken-4">{{newOffer.game.name}}<i class="material-icons right">close</i></span>
+							<p>{{newOffer.game.minPlayers}} a {{newOffer.game.maxPlayers}} jugadores</p>
+							<p>{{newOffer.game.playingTime}} minutos</p>
+					</div>
+					<div class="card-action">
+						<a target="_blank" ng-href="https://boardgamegeek.com/boardgame/{{newOffer.game.gameId}}">Ver en bgg</a>
+					</div>
+				</div>
+			</div>
+			<div class="row center-align" style="margin-top: 150px;" ng-show="loadingGames">
+				<div class="preloader-wrapper big active center-align">
+					<div class="spinner-layer spinner-blue-only">
+						<div class="circle-clipper left">
+							<div class="circle"></div>
+						</div>
+						<div class="gap-patch">
+							<div class="circle"></div>
+						</div>
+						<div class="circle-clipper right">
+							<div class="circle"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col m12" ng-show="!loadingGames">
+				<div class="input-field">
+					<i class="material-icons prefix">search</i>
+					<input id="icon_prefix" type="text" class="validate" ng-model="collectionFilter">
+					<label for="icon_prefix">Buscar juego...</label>
+				</div>
+				<ul class="collection">
+				    <a class="collection-item avatar" ng-repeat="game in generalCollection | filter:collectionFilter | limitTo: 5" ng-click="selectGame(game)" ng-class="game.selectClass">
+				      	<img ng-src="{{game.thumbnail}}" alt="" class="circle">
+						<span class="title">{{game.name}}</span>
+						<p>{{game.playingTime}} minutos <br>
+							{{game.minPlayers}} a {{game.maxPlayers}} jugadores
+						</p>
+				    </a>
+				    <a class="collection-item avatar" ng-click="gameNotFound()">Otro</a>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="col m8">
+			<h5>Información general</h5>
+			<div class="divider"></div>
+			<div class="col m12 l12">
+				<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+					<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+						<p>Tipo de oferta:</p>
+					</div>
+					<div class="col m8 l8 white" >
+						<div class="row" style="padding-bottom: 10px">
+							<form action="#">
+							    <div class="col m4">
+							      <input name="groupType" type="radio" id="selling" value="selling" ng-model="newOffer.type"/>
+							      <label for="selling">Vendo</label>
+							    </div>
+							    <div class="col m4">
+							      <input name="groupType" type="radio" id="buying" value="buying" ng-model="newOffer.type"/>
+							      <label for="buying">Compro</label>
+							    </div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+					<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+						<p>Descripción</p>
+					</div>
+					<div class="col m8 l8 white" >
+						<textarea id="description" class="materialize-textarea" ng-model="newOffer.description" placeholder="Escribe una descripción corta con palabras claves aquí..."></textarea>
+					</div>
+				</div>
+				<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+					<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+						<p>Lugar</p>
+					</div>
+					<div class="col m8 l8 white" >
+						<input placeholder="Lugar de encuentro para la transacción" id="place" type="text" class="validate" ng-model="newOffer.place">
+					</div>
+				</div>
+				<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+					<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+						<p>Precio</p>
+					</div>
+					<div class="col m8 l8 white" >
+						<input placeholder="Precio" id="price" type="number" class="validate" ng-model="newOffer.price">
+					</div>
+				</div>
+				<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+					<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+						<p>Métodos de pago:</p>
+					</div>
+					<div class="col m8 l8 white" >
+						<form action="#">
+						    <p>
+						        <input type="checkbox" id="cash" ng-model="newOffer.paymentMethods.cash"/>
+						        <label for="cash">Efectivo</label>
+						    </p>
+						    <p>
+								<input type="checkbox" id="bankTrans" ng-model="newOffer.paymentMethods.bankTrans"/>
+								<label for="bankTrans">Transferencia Bancaria</label>
+						    </p>
+						    <p>
+								<input type="checkbox" id="exchange" ng-model="newOffer.paymentMethods.exchange"/>
+								<label for="exchange">Cambio por otro juego</label>
+						    </p>
+						    <p>
+								<input type="checkbox" id="other" ng-model="newOffer.paymentMethods.other"/>
+								<label for="other">Otro</label>
+						    </p>
+						</form>
+					</div>
+				</div>
+			</div>
+			<h5>Estado del juego</h5>
+			<div class="divider"></div>
+			<div class="col m12 l12">
+				<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+					<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+						<p>En envoltorio original?</p>
+					</div>
+					<div class="col m8 l8 white" >
+						<div class="row" style="padding-bottom: 10px">
+							<form action="#">
+							    <div class="col m4">
+							      <input name="groupShrink" type="radio" id="shrinkwrap" value=true ng-model="newOffer.inShrink"/>
+							      <label for="shrinkwrap">Sí</label>
+							    </div>
+							    <div class="col m4">
+							      <input name="groupShrink" type="radio" id="noShrink" value=false ng-model="newOffer.inShrink"/>
+							      <label for="noShrink">No</label>
+							    </div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+					<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+						<p>Condición física del juego</p>
+					</div>
+					<div class="col m8 l8 white" style="padding-bottom: 10px">
+						<select ng-model="newOffer.overallState" class="browser-default" >
+							<option value="" disabled>Condición física del juego</option>
+							<option value=1>1 - Muy mal estado.</option>
+							<option value=2>2 - Mal estado.</option>
+							<option value=3>3 - Buen estado </option>
+							<option value=4>4 - Casi como nuevo</option>
+							<option value=5>5 - Nuevo</option>
+						</select>
+					</div>
+				</div>
+				<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+					<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+						<p>Componentes del juego:</p>
+					</div>
+					<div class="col m8 l8 white" >
+						<form action="#">
+						    <p>
+						        <input type="checkbox" id="completeOriginal" ng-model="newOffer.components.completeOriginal"/>
+						        <label for="completeOriginal">Originales completos</label>
+						    </p>
+						    <p>
+						        <input type="checkbox" id="includeExtra" ng-model="newOffer.components.includeExtra"/>
+						        <label for="includeExtra">Incluye componentes agregados (reemplazo o mejoras)</label>
+						    </p>
+						    <p>
+						        <input type="checkbox" id="sleevedCards" ng-model="newOffer.components.sleevedCards"/>
+						        <label for="sleevedCards">Cartas en sobres protectores</label>
+						    </p>
+						    
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<!-- ************************
+	MODAL GAME NOT FOUND
+**************************-->
+
+<div id="modalGameNotFound" class="modal">
+	<div class="modal-content">
+		<h4>Juego nuevo</h4>
+		<div class="divider"></div>
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+					<p>Nombre del juego</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<input type="text" class="" placeholder="Nombre del juego" ng-model="unknownGame.name">
+				</div>
+			</div>
+			
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+					<p>Mínimo número de jugadores</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<input placeholder="Mínimo número de jugadores" type="text" class="validate" ng-model="unknownGame.minPlayers">
+				</div>
+			</div>
+
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+					<p>Máximo número de jugadores</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<input placeholder="Máximo número de jugadores" type="text" class="validate" ng-model="unknownGame.maxPlayers">
+				</div>
+			</div>
+			
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+					<p>Tiempo estimado de juego</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<input placeholder="Tiempo estimado de juego" type="text" class="validate" ng-model="unknownGame.playingTime">
+				</div>
+			</div>
+		
+	</div>
+	<div class="modal-footer">
+		<a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="useUnknownGame()">Aceptar</a>
+	</div>
+</div>
+

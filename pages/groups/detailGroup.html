@@ -1,0 +1,22 @@
+<ul id="slide-out" class="side-nav fixed">
+    <li ng-repeat="(index, itemMenu) in menu" ng-class="menuClasses[index]"><a ng-click="goto(itemMenu.linkTo)">{{itemMenu.name}}</a></li>
+</ul>
+
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper" ng-class="theme.navBarColor">
+			<a href="#!" class="brand-logo">Logo</a>
+		</div>
+		<div class="nav-content">
+			<a class="btn-floating btn-large halfway-fab waves-effect waves-light" ng-class="theme.navFabColor" ng-click="goto('createGroup')">
+				<i class="material-icons">add</i>
+			</a>
+		</div>
+	</nav>
+</div>
+
+<div class="miContenido">
+	<h4>Detalle Grupo</h4>
+	<div class="divider"></div>
+	<p>{{groupId}}</p>
+</div>

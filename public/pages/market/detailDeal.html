@@ -1,0 +1,121 @@
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper" ng-class="theme.navBarColor">
+			<a href="#!" class="brand-logo valign-wrapper">
+				<span >TABLOO</span>
+			</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+	        	<li ng-repeat="(index, itemMenu) in menu" ng-class="menuClasses[index]"><a ng-click="goto(itemMenu.linkTo)"><i class="material-icons left">{{itemMenu.icon}}</i>{{itemMenu.name}}</a></li>
+	        	<li><a href="#!" style="height: 64px;" class="valign-wrapper dropdown-button" data-activates="dropdownPerfil">Mi Perfil<i class="material-icons right">arrow_drop_down</i> <img ng-src="{{user.photoURL}}" alt="" class="circle navBarImg white valign"/></a></li>
+	      	</ul>
+		</div>
+	</nav>
+</div>
+
+<div class="container">
+	<div class="row" ng-show="!loadingOffer">
+		<h4><span ng-if="thisOffer.type=='selling'">Trato: </span><span ng-if="thisOffer.type=='buying'">Buscando: </span>{{thisOffer.game.name}} <a ng-href="https://boardgamegeek.com/boardgame/{{thisOffer.game.gameId}}">ver en BGG</a></h4> 
+		<div class="divider"></div>
+		<div class="row">
+			<div class="col m8">
+				<h5>Datos de la oferta original</h5>
+				<div class="divider"></div>
+				<div class="col m6 l6 blue-grey lighten-5">
+					<div class="col m12">
+						<img ng-src="{{thisOffer.game.thumbnail}}" class="gameProfImg">
+					</div>
+					<h4 ng-if="thisOffer.type=='selling'">$ {{formatPrice(thisOffer.price)}}</h4>
+					<h5 ng-if="thisOffer.type=='selling'">Vendedor</h5>
+					<h5 ng-if="thisOffer.type=='buying'">Interesado</h5>
+					<ul class="collection">
+					    <li class="collection-item avatar">
+					      <img ng-src="{{organizer.photoURL}}" alt="" class="circle">
+					      <span class="title"><a ng-href="#!/usuario/{{organizer.$id}}">{{organizer.name}} {{organizer.lastNames}}</a></span>
+					      <p>{{adminserv.getContextById('name','city',[thisOffer.admin.countryId, thisOffer.admin.cityId])}} , {{adminserv.getContextById('name','country',thisOffer.admin.countryId)}}</p>
+					    </li>
+					</ul>
+				</div>
+				<div class="col m6">
+					<table class="striped">
+						<tbody>
+							<tr>
+								<td>Ciudad</td>
+								<td>{{adminserv.getContextById('name','city',[user.countryId, thisOffer.city])}}</td>
+							</tr>
+							<tr>
+								<td>Lugar</td>
+								<td>{{thisOffer.place}}</td>
+							</tr>
+							<tr>
+								<td>Estado general del juego</td>
+								<td>
+									<p ng-if="thisOffer.inShrink">En envoltorio original</p>
+									<p ng-if="thisOffer.overallState">{{adminserv.getOAState(thisOffer.overallState)}}</p>
+								</td>
+							</tr>
+							<tr>
+								<td>Componentes</td>
+								<td>
+									<p ng-if="thisOffer.components.completeOriginal">Componentes originales y completos</p>
+									<p ng-if="thisOffer.components.includeExtra">Incluye componentes agregados (reemplazo o mejoras)</p>
+									<p ng-if="thisOffer.components.sleevedCards">Cartas en sobres protectores</p>
+								</td>
+							</tr>
+							<tr>
+								<td>Métodos de pago</td>
+								<td>
+									<p ng-if="thisOffer.paymentMethods.cash">Efectivo</p>
+									<p ng-if="thisOffer.paymentMethods.bankTrans">Transferencia Bancaria</p>
+									<p ng-if="thisOffer.paymentMethods.exchange">Cambio por otro juego</p>
+									<p ng-if="thisOffer.paymentMethods.other">Otro</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<h5>Información adicional:</h5>
+					<p>{{thisOffer.description}}</p>
+				</div>
+			</div>
+			<div class="col m4">
+				<h5>Detalles del trato</h5>
+				<div class="divider"></div>
+				<table class="striped">
+					<tbody>
+						<tr>
+							<td>Fecha del trato</td>
+							<td>{{adminserv.interpretDate(thisOffer.dateOfDeal)}}</td>
+						</tr>
+						<tr>
+							<td>Comprador</td>
+							<td>
+								<div class="chip">
+								    <img ng-src="{{thisOffer.buyer.photoURL}}" alt="Contact Person">
+								    <a ng-href="#!/usuario/{{thisOffer.buyer.userKey}}">{{thisOffer.buyer.name}} {{thisOffer.buyer.lastNames}}</a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Precio acordado</td>
+							<td>$ {{formatPrice(thisOffer.ammount)}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row center-align" style="margin-top: 150px;" ng-show="loadingOffer">
+		<div class="preloader-wrapper big active center-align">
+			<div class="spinner-layer spinner-blue-only">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

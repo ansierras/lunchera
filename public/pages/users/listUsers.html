@@ -1,0 +1,56 @@
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper" ng-class="theme.navBarColor">
+			<a href="#!" class="brand-logo valign-wrapper">
+				<span >TABLOO</span>
+			</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+	        	<li ng-repeat="(index, itemMenu) in menu" ng-class="menuClasses[index]"><a ng-click="goto(itemMenu.linkTo)"><i class="material-icons left">{{itemMenu.icon}}</i>{{itemMenu.name}}</a></li>
+	        	<li><a href="#!" style="height: 64px;" class="valign-wrapper dropdown-button" data-activates="dropdownPerfil">Mi Perfil<i class="material-icons right">arrow_drop_down</i> <img ng-src="{{user.photoURL}}" alt="" class="circle navBarImg white valign"/></a></li>
+	      	</ul>
+		</div>
+	</nav>
+</div>
+
+<div class="container">
+	<h4>Lista de Usuarios</h4>
+
+	<div class="divider"></div>
+    <select class="browser-default" ng-model="filter.cityId">
+      <option ng-value="{{city.id}}" ng-repeat="city in cities">{{city.name}}</option>
+    </select>
+    <div class="row" ng-show="usersList.length>0 && !loadingUserList">
+    	<div class="col s12 m3" ng-repeat="user in usersList | filter: filterFunc">
+    		<div class="card small">
+    			<div class="card-image">
+    				<img ng-src="{{user.photoURL}}">
+    			</div>
+    			<div class="card-content">
+    				<p>{{user.name}} {{user.lastNames}}</p>
+    				<p>{{adminserv.interpretDate(user.memberSince)}}</p>
+    				<p>{{user.place}}</p>
+    			</div>
+    			<div class="card-action">
+    				<a ng-href="#!/usuario/{{user.$id}}">Ver más</a>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    <div class="row" ng-show="encounterList.length<=0 && !loadingEncounterList">No hay
+    </div>
+    <div class="row center-align" style="margin-top: 150px;" ng-show="loadingUserList">
+    	<div class="preloader-wrapper big active center-align">
+    		<div class="spinner-layer spinner-blue-only">
+    			<div class="circle-clipper left">
+    				<div class="circle"></div>
+    			</div>
+    			<div class="gap-patch">
+    				<div class="circle"></div>
+    			</div>
+    			<div class="circle-clipper right">
+    				<div class="circle"></div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+</div>

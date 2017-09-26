@@ -1,0 +1,397 @@
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper" ng-class="theme.navBarColor">
+			<a href="#!" class="brand-logo valign-wrapper">
+				<img src="./assets/logoLunch.png">
+			</a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+
+	        	<li ng-repeat="(index, itemMenu) in menu" ng-class="menuClasses[index]"><a ng-click="goto(itemMenu.linkTo)" class="delhi"><i class="material-icons left">{{itemMenu.icon}}</i>{{itemMenu.name}}</a></li>
+	        	<li class="active"><a href="#!" style="height: 64px;" class="valign-wrapper dropdown-button delhi" data-activates="dropdownPerfil">Mi Perfil<i class="material-icons right">arrow_drop_down</i> <img ng-src="{{user.photoURL}}" alt="" class="circle navBarImg white valign"/></a></li>
+	      	</ul>
+			<!--
+			<form class="right">
+				<div class="input-field">
+					<input id="search" type="search" required ng-model="profileFilter">
+					<label class="label-icon" for="search"><i class="material-icons">search</i></label>
+					<i class="material-icons">close</i>
+				</div>
+			</form>
+			-->
+		</div>
+	</nav>
+</div>
+
+<ul id="dropdownPerfil" class="dropdown-content">
+	<li><a href="#!">Ver mi perfil</a></li>
+	<li><a href="#!">Editar mi perfil</a></li>
+	<li class="divider" ng-if="user.status=='admin'"></li>
+	<li ng-if="user.status=='admin'"><a href="#!/adminsite">Admin Site</a></li>
+	<li class="divider"></li>
+	<li><a href="#!">Cerrar Sesión</a></li>
+</ul>
+<ul id="dropdownMesas" class="dropdown-content">
+	<li><a href="#!">Ver mesas</a></li>
+	<li><a href="#!">Crear una mesa</a></li>
+</ul>
+
+<div class="tap-target" data-activates="edit">
+	<div class="tap-target-content">
+		<h5>Para comenzar...</h5>
+		<p>Llena los campos correspondientes. Una vez termines, haz click en este botón para guardar los cambios. ¡Podrás volver aquí cuando quieras!</p>
+	</div>
+</div>
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large waves-effect waves-light" ng-class="theme.navFabColor" ng-click="editProfile()" id="edit">
+    	<i class="material-icons" ng-if="!modeEdit" >mode_edit</i>
+    	<i class="material-icons" ng-if="modeEdit">save</i>
+    </a>
+</div>
+<div class="row center-align" style="margin-top: 150px;" ng-show="loadingUser">
+	<div class="preloader-wrapper big active center-align">
+		<div class="spinner-layer spinner-blue-only">
+			<div class="circle-clipper left">
+				<div class="circle"></div>
+			</div>
+			<div class="gap-patch">
+				<div class="circle"></div>
+			</div>
+			<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="parallax-container valign-wrapper" style="max-height: 200px" ng-show="!loadingUser">
+  	<div class="section no-pad-bot">
+    	<div class="container">
+      		<div class="row center">
+        		<div class="col m6 offset-m3">
+        			<div class="col m6 offset-m3">
+        				<img class="responsive-img circle" ng-src="{{user.photoURL}}" style="background-color:white">
+        				
+        			</div>
+        		</div>
+     		</div>
+     		<div class="row center">
+     			<div class="row">
+     				<h5 class="header col s12 light">{{user.name}} {{user.lastNames}}</h5>
+     			</div>
+     			
+     			<div class="row center">
+     				<span class="valign">{{adminserv.getContextById('name','city',[user.countryId, user.cityId])}} , {{adminserv.getContextById('name','country',user.countryId)}}</span>
+     			</div>
+     			
+     		</div>
+    	</div>
+  	</div>
+  	<div class="parallax"><img ng-src="{{user.coverImg}}" alt="Unsplashed background img 3">
+
+  	</div>
+  	
+</div>
+
+<div class="row white-text" style="margin-bottom: 0px;" ng-class="theme.importantContent" ng-show="!loadingUser">
+	<div class="container">
+		<div class="col m8 offset-m2">
+			<div class="col m4 left-stat" ng-class="theme.stats3">
+				<h4 class="center">4.8</h4>
+				<p class="center">Calificación</p>
+			</div>
+			<div class="col m4 center-stat" ng-class="theme.stats2">
+				<h4 class="center">20</h4>
+				<p class="center">Experiencias</p>
+			</div>
+			<div class="col m4 right-stat" ng-class="theme.stats1">
+				<h4 class="center">34</h4>
+				<p class="center">Kalash Kalash</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row" ng-show="!modeEdit && !loadingUser">
+		<div class="col m4 l4 blue-grey lighten-5" style="height: 100%">
+			<!--
+			<div class="col m12">
+				<img ng-src="{{user.photoURL}}" class="circle profImg white"/>
+			</div>
+			-->
+			<div class="col m12">
+				<div class="card-panel" ng-class="theme.importantContent">
+					<span class="white-text">{{user.bio}}</span>
+				</div>
+			</div>
+			<div class="col m12">
+				<div class="row">
+					<div class="col m2">
+						<i class="material-icons left">location_on</i>
+					</div>
+					<div class="col m10">
+						{{adminserv.getContextById('name','city',[user.countryId, user.cityId])}} , {{adminserv.getContextById('name','country',user.countryId)}}
+					</div>
+				</div>
+			</div>
+			<div class="col m12">
+				<div class="row">
+					<div class="col m2">
+						<i class="material-icons left">email</i>
+					</div>
+					<div class="col m10">
+						{{user.email}}
+					</div>
+				</div>
+			</div>
+			<div class="col m12">
+				<div class="row">
+					<div class="col m2">
+						<i class="material-icons left">phone</i>
+					</div>
+					<div class="col m10">
+						{{user.telephone}}
+					</div>
+				</div>
+			</div>
+			<div class="col m12">
+				<div class="row">
+					<div class="col m12">
+						Miembro desde: {{adminserv.interpretDate(user.memberSince)}}
+					</div>
+				</div>
+			</div>
+			<div class="col m12 l12">
+				<div class="row">
+					<a class="btn" ng-click="logout()">Cerrar Sesión</a>
+				</div>
+			</div>
+		</div>
+		<div class="col m8 ">
+			<div class="col s12">
+				<ul class="tabs">
+					<li class="tab col s3"><a href="#tables">Mesas</a></li>
+					<li class="tab col s3"><a href="#messages">Mensajes</a></li>
+				</ul>
+			</div>
+			
+			<div id="tables" class="col s12">
+				<div class="row" ng-show="!loadingEncounterList && encounters.iAmAdmin.length>0">
+					<h5>soy anfitrión:</h5>
+					<div class="divider"></div>
+					<div class="col s12 m6" ng-repeat="encounter in encounters.iAmAdmin">
+						<div class="card small">
+							<div class="card-image">
+								<img ng-src="{{encounter.coverImg}}">
+								<span class="card-title">{{encounter.name}}</span>
+							</div>
+							<div class="card-content">
+								<p>{{adminserv.interpretDate(encounter.date)}}</p>
+								<p>{{encounter.place}}</p>
+							</div>
+							<div class="card-action">
+								<a href="#!/mesa/{{encounter.country}}/{{encounter.$id}}">Ver más <span ng-show="encounter.warning" class="new badge" data-badge-caption="!"></span></a>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-show="!loadingEncounterList && encounters.iAmPlayer.length>0">
+					<h5>soy comensal:</h5>
+					<div class="divider"></div>
+					<div class="col s12 m6" ng-repeat="encounter in encounters.iAmPlayer">
+						<div class="card small">
+							<div class="card-image">
+								<img ng-src="{{encounter.coverImg}}">
+								<span class="card-title">{{encounter.name}}</span>
+							</div>
+							<div class="card-content">
+								<p>{{adminserv.interpretDate(encounter.date)}}</p>
+								<p>{{encounter.place}}</p>
+							</div>
+							<div class="card-action">
+								<a href="#!/mesa/{{encounter.country}}/{{encounter.$id}}">Ver más</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" ng-show="!loadingEncounterList && encounters.iAmQueuing.length>0">
+					<h5>En fila:</h5>
+					<div class="divider"></div>
+					<div class="col s12 m4" ng-repeat="encounter in encounters.iAmQueuing">
+						<div class="card small">
+							<div class="card-image">
+								<img ng-src="{{encounter.game.thumbnail}}">
+								<span class="card-title">{{encounter.name}}</span>
+							</div>
+							<div class="card-content">
+								<p>{{adminserv.interpretDate(encounter.date)}}</p>
+								<p>{{encounter.place}}</p>
+							</div>
+							<div class="card-action">
+								<a href="#!/mesa/{{encounter.country}}/{{encounter.$id}}">Ver más</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- LOADER -->
+				<div class="row center-align" style="margin-top: 150px;" ng-show="loadingEncounterList">
+					<div class="preloader-wrapper big active center-align">
+						<div class="spinner-layer spinner-blue-only">
+							<div class="circle-clipper left">
+								<div class="circle"></div>
+							</div>
+							<div class="gap-patch">
+								<div class="circle"></div>
+							</div>
+							<div class="circle-clipper right">
+								<div class="circle"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END LOADER -->
+			</div>
+			<div id="messages" class="col s12">
+				<div class="row">
+					<div class="col m12">
+					    <div class="card horizontal" ng-repeat="message in userMessages">
+							<div class="card-image col m3">
+								<img ng-src="{{message.author.photoURL}}">
+							</div>
+							<div class="card-stacked">
+								<div class="card-content">
+									<a class="bold" ng-href="#!/usuario/{{message.author.userKey}}">{{message.author.name}} {{message.author.lastNames}}</a>
+									<p class="bold">{{adminserv.interpretDateLong(message.date)}}</p>
+									<div class="divider"></div>
+									<p>{{message.text}}</p>
+								</div>
+								<div class="card-action">
+									<a ng-click="openRespondModal(message.author)">Responder</a>
+									<a ng-click="archiveMessage(message)">Archivar</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-show="modeEdit && !loadingUser">
+		<h4>Información de contacto</h4>
+		<div class="divider"></div>
+		<div class="col m12 l12">
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+					<p>Tu nombre</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<input placeholder="Nombre" id="name" type="text" class="validate" ng-model="user.name">
+				</div>
+			</div>
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4">
+					<p>Tus apellidos</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<input placeholder="Apellidos" id="lastNames" type="text" class="validate" ng-model="user.lastNames">
+				</div>
+			</div>
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4">
+					<p>¿En qué país te encuentras?</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<select class="browser-default" style="margin-bottom:20px" ng-model="user.countryId" ng-change="changedCountry()">
+						<option ng-value="{{country.id}}" ng-repeat="country in countries">{{country.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4">
+					<p>¿En qué ciudad te encuentras?</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<select class="browser-default" style="margin-bottom:20px" ng-model="user.cityId">
+						<option ng-value="{{city.id}}" ng-repeat="city in cities">{{city.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4">
+					<p>Tu número de teléfono</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<input placeholder="Teléfono" id="telephone" type="number" class="validate" ng-model="user.telephone">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-show="modeEdit && !loadingUser">
+		<div class="col m12 l12">
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+					<p>Una corta descripción</p>
+				</div>
+				<div class="col m8 l8 white" >
+					<input placeholder="Qué es lo que más te gusta de los juegos de mesa, por ejemplo..." id="bio" type="text" class="validate" ng-model="user.bio">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-show="modeEdit && !loadingUser">
+		<div class="col m12 l12">
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+					<p>Foto de perfil</p>
+				</div>
+				<div class="col m8 l8 white file-field" >
+					<div class="col l12" ng-hide="!user.photoURL || fotoPerfil">
+						<img ng-src="{{user.photoURL}}" class="circle classprofImgPrev">
+					</div>
+					<div id="profImgPrev"  ng-show="fotoPerfil"></div>
+					<media-preview preview-container="profImgPrev" preview-class="circle classprofImgPrev" model="fotoPerfil"></media-preview>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-show="modeEdit && !loadingUser">
+		<div class="col m12 l12">
+			<div class="row" style="margin-bottom:0px" ng-class="theme.formColumnRight">
+				<div class="col m4 l4 blue-grey lighten-5 myFormCol">
+					<p>Foto Cover</p>
+				</div>
+				<div class="col m8 l8 white file-field" >
+					<div class="col l12" ng-hide="!user.coverImg || fotoCover">
+						<img ng-src="{{user.coverImg}}" class=" classcovImgPrev">
+					</div>
+					<div id="covImgPrev"  ng-show="fotoCover"></div>
+					<media-preview preview-container="covImgPrev" preview-class="classcovImgPrev" model="fotoCover"></media-preview>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+<div id="modalWelcome" class="modal">
+	<div class="modal-content">
+		<h4>¡BienvenidX {{user.name}}!</h4>
+		<p>Ahora eres parte de la comunidad de enamorados de la buena cocina que buscan vivir nuevas experiencias en torno a la gastronomía!</p>
+	</div>
+	<div class="modal-footer">
+		<a  class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="openTutorial(0)">Comenzar</a>
+	</div>
+</div>
+
+<div id="modalRespond" class="modal">
+	<div class="modal-content">
+		<h4>Envía un mensaje a {{toUser.name}}</h4>
+		<div class="input-field col s12">
+			<textarea class="materialize-textarea" placeholder="escribe aquí tu mensaje" ng-model="newMessage"></textarea>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a  class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="sendMessage()">Comenzar</a>
+	</div>
+</div>

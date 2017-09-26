@@ -1,0 +1,16 @@
+<ul id="slide-out" class="side-nav fixed">
+    <li ng-repeat="(index, itemMenu) in menu" ng-class="menuClasses[index]"><a ng-click="goto(itemMenu.linkTo)">{{itemMenu.name}}</a></li>
+</ul>
+
+<div class="navbar-fixed">
+	<nav>
+		<div class="nav-wrapper" ng-class="theme.navBarColor">
+			<a href="#!" class="brand-logo">Logo</a>
+		</div>
+	</nav>
+</div>
+
+<div class="miContenido">
+	<h4>Crear Grupo</h4>
+	<div class="divider"></div>
+</div>
