@@ -57,11 +57,38 @@
 				</div>
 			</div>
 		</div>
+		<div class="col m4">
+			<span class="new badge blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Este evento aparece en la lista pública de tu ciudad" ng-show="thisEncounter.privacy=='public'" data-badge-caption="evento público"></span><span class="new badge red" ng-show="thisEncounter.privacy=='private'" data-badge-caption="evento privado"></span>
+		</div>
 	</div>
 </div>
 <div class="container" ng-show="!loadingEncounter">
-	<h4>{{thisEncounter.name}} <span class="new badge blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Este evento aparece en la lista pública de tu ciudad" ng-show="thisEncounter.privacy=='public'" data-badge-caption="evento público"></span><span class="new badge red" ng-show="thisEncounter.privacy=='private'" data-badge-caption="evento privado"></span></h4>
+	<h4 class="center-align">{{thisEncounter.name}} </h4>
+	<p class="center-align">{{thisEncounter.description}}</p>
+	<p class="center-align">Comienza a las: {{thisEncounter.startingAt}} </p>
+	<p class="center-align">Termina a las: {{thisEncounter.endingAt}} </p>
 	<div class="divider"></div>
+	<h4 class="center-align">¿Dónde?</h4>
+	<p class="center-align">{{thisEncounter.place}}</p>
+	<p class="center-align">{{thisEncounter.directions}}</p>
+	<div class="divider"></div>
+	<div class="divider"></div>
+	<h4 class="center-align">LunChef</h4>
+	<div class="col s12 m7 l7">
+		<div class="card horizontal">
+			<div class="card-image">
+				<img ng-src="{{organizer.photoURL}}">
+			</div>
+			<div class="card-stacked">
+				<div class="card-content">
+					<p>I am a very simple card. I am good at containing small bits of information.</p>
+				</div>
+				<div class="card-action">
+				  	<a href="#">This is a link</a>
+				</div>
+			</div>
+		</div>
+	  </div>
 	<div class="row" ng-show="!loadingEncounter">
 		<div class="col m4 l4 blue-grey lighten-5">
 			<div class="col m12">
@@ -87,33 +114,6 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col m6">
-					<h5>Datos Generales</h5>
-					<table class="striped">
-						<tbody>
-							<tr>
-								<td>Fecha</td>
-								<td>{{adminserv.interpretDate(thisEncounter.date)}}</td>
-							</tr>
-							<tr>
-								<td>Hora de inicio</td>
-								<td>{{thisEncounter.startingAt}}</td>
-							</tr>
-							<tr>
-								<td>Hora de finalizar</td>
-								<td>{{thisEncounter.endingAt}}</td>
-							</tr>
-							<tr>
-								<td>Lugar</td>
-								<td>{{thisEncounter.place}}</td>
-							</tr>
-							<tr>
-								<td>Cómo llegar?</td>
-								<td>{{thisEncounter.directions}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
 				<div class="col m6">
 					<h5>Comensales</h5>
 					<div class="row">

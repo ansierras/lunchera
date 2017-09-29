@@ -32,11 +32,13 @@ companion.service('adminserv',['Auth','$http','PLACES','DATESTUFF', '$firebaseOb
         getContextById: function(type, constant, argId){
             switch(constant){
                 case 'city':
-                    if (type == 'name') {return searchById(searchById(PLACES, argId[0]).cities , argId[1]).name;}
+                    if (type == 'name' && argId[0] && argId[1]) {return searchById(searchById(PLACES, argId[0]).cities , argId[1]).name;}
                     break;
                 case 'country':
-                    if (type == 'name') {return searchById(PLACES, argId).name;}
-                    else {return searchById(PLACES, argId).ref;}
+                    if (argId) {
+                        if (type == 'name') {return searchById(PLACES, argId).name;}
+                        else {return searchById(PLACES, argId).ref;}
+                    }
             }
         },
         getUserByKey: function(userKey){

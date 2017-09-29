@@ -28,7 +28,7 @@
 	<li class="divider" ng-if="user.status=='admin'"></li>
 	<li ng-if="user.status=='admin'"><a href="#!/adminsite">Admin Site</a></li>
 	<li class="divider"></li>
-	<li><a href="#!">Cerrar Sesión</a></li>
+	<li><a ng-click="logout()">Cerrar Sesión</a></li>
 </ul>
 <ul id="dropdownMesas" class="dropdown-content">
 	<li><a href="#!">Ver mesas</a></li>
