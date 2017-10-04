@@ -26,6 +26,7 @@ angular.module('companion.listEncounters', ['ui.router'])
 }])
 
 .controller('listEncountersCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseArray','$firebaseObject','MENU_ITEMS', 'THEME','PLACES', function(adminserv,$scope, $state, $rootScope, $firebaseArray, $firebaseObject, MENU_ITEMS, THEME, PLACES) {
+	
 	$scope.loadingEncounterList = true;
 	$scope.adminserv = adminserv;
 	$scope.filter = {communeId:11};
@@ -64,6 +65,16 @@ angular.module('companion.listEncounters', ['ui.router'])
 		var arrayEncounters = $firebaseArray(refEncounters);
 		arrayEncounters.$loaded().then(function(){
 			$scope.encounterList = arrayEncounters;
+			 var refHosts = [];
+			 var objHosts = [];
+			for (var i = $scope.encounterList.length - 1; i >= 0; i--) {
+				refHosts[i] = firebase.database().ref('users/'+$scope.encounterList[i].admin+'/short');
+				objHosts[i] = $firebaseObject(refHosts[i]);
+				// objHosts[i].$loaded().then(function(){
+
+				// })
+				$scope.encounterList[i].host = objHosts[i]
+			}
 			$scope.loadingEncounterList = false;
 		})
 	})

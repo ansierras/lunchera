@@ -1,10 +1,10 @@
 companion.constant('THEME',{
 	//***** NAVBAR THEME *************
 	navBarColor: ' light-blue',
-	navBarColorSub: ' cyan darken-3',
+	navBarColorSub: ' cyan darken-4',
 	navFabColor: ' lime ',
 
-	importantContent: 'cyan darken-4',
+	importantContent: 'light-blue',
 
 	formColumnRight: 'blue-grey lighten-5',
 

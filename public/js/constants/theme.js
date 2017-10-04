@@ -4,7 +4,7 @@ companion.constant('THEME',{
 	navBarColorSub: ' cyan darken-3',
 	navFabColor: ' lime ',
 
-	importantContent: 'cyan darken-4',
+	importantContent: 'light-blue',
 
 	formColumnRight: 'blue-grey lighten-5',
 

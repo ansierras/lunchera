@@ -57,135 +57,76 @@
 				</div>
 			</div>
 		</div>
+		<div class="col m4">
+			<span class="new badge lime tooltipped" data-position="bottom" data-delay="50" data-tooltip="Este evento aparece en la lista pública de tu ciudad" ng-show="thisEncounter.privacy=='public'" data-badge-caption="evento público"></span><span class="new badge red" ng-show="thisEncounter.privacy=='private'" data-badge-caption="evento privado"></span>
+		</div>
 	</div>
 </div>
 <div class="container" ng-show="!loadingEncounter">
-	<h4>{{thisEncounter.name}} <span class="new badge blue tooltipped" data-position="bottom" data-delay="50" data-tooltip="Este evento aparece en la lista pública de tu ciudad" ng-show="thisEncounter.privacy=='public'" data-badge-caption="evento público"></span><span class="new badge red" ng-show="thisEncounter.privacy=='private'" data-badge-caption="evento privado"></span></h4>
+	<h4 class="center-align">{{thisEncounter.name}} <a class="waves-effect waves-lime btn-flat" ng-if="iAmAdmin" ng-click="deleteEncounter2()">Eliminar mesa</a></h4>
+	<p class="center-align">{{thisEncounter.description}}</p>
+	<p class="center-align">Comienza a las: {{thisEncounter.startingAt}} </p>
+	<p class="center-align">Termina a las: {{thisEncounter.endingAt}} </p>
 	<div class="divider"></div>
-	<div class="row" ng-show="!loadingEncounter">
-		<div class="col m4 l4 blue-grey lighten-5">
-			<div class="col m12">
-				<div class="card-panel" ng-class="theme.importantContent">
-					<span class="white-text">{{thisEncounter.description}}</span>
+	<h4 class="center-align">¿Dónde?</h4>
+	<p class="center-align">{{thisEncounter.place}}</p>
+	<p class="center-align">{{thisEncounter.directions}}</p>
+	<div class="divider"></div>
+	<h4 class="center-align">LunChef</h4>
+	<div class="row">
+		<div class="col s12 m6 l6 offset-m3 offset-l3">
+			<div class="card" style="padding-top:20px">
+				<div class="row">
+					<div class="col m6 offset-m3 l6 offset-l3">
+						<img ng-src="{{organizer.photoURL}}" class="circle responsive-img z-depth-2" >
+					</div>
+					
+				</div>
+				<div class="card-stacked">
+					<div class="card-content" style="padding-top: 0px">
+						<h5 class="center-align">{{organizer.name}} {{organizer.lastNames}}</h5>
+						<p>{{organizer.bio}}</p>
+						<div class="row center-align" style="margin-top: 30px">
+							<a class="waves-effect waves-light btn-large lime" ng-href="#!/usuario/{{organizer.userKey}}" style="border-radius: 27px">Ver perfil</a>
+						</div>
+					</div>
 				</div>
 			</div>
-			<h4>LunChef</h4>
-			<ul class="collection">
-			    <li class="collection-item avatar">
-					<img ng-src="{{organizer.photoURL}}" alt="" class="circle">
-					<span class="title"><a ng-href="#!/usuario/{{organizer.$id}}">{{organizer.name}} {{organizer.lastNames}}</a></span>
-					<p>{{adminserv.getContextById('name','city',[organizer.countryId, organizer.cityId])}} , {{adminserv.getContextById('name','country',organizer.countryId)}}</p>
-			    </li>
-			</ul>
-			<a class="btn" ng-click="deleteEncounter()" ng-if="iAmAdmin">Eliminar mesa</a>
 		</div>
-		<div class="col m8 ">
-			<div class="row" ng-show="userIsInQueue" style="padding-left:20px; padding-right: 20px;">
-				<div class="card-panel" ng-class="theme.warning.medium">
-					<span class="white-text">En este momento estás en la FILA para este encuentro!
-					</span>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col m6">
-					<h5>Datos Generales</h5>
-					<table class="striped">
-						<tbody>
-							<tr>
-								<td>Fecha</td>
-								<td>{{adminserv.interpretDate(thisEncounter.date)}}</td>
-							</tr>
-							<tr>
-								<td>Hora de inicio</td>
-								<td>{{thisEncounter.startingAt}}</td>
-							</tr>
-							<tr>
-								<td>Hora de finalizar</td>
-								<td>{{thisEncounter.endingAt}}</td>
-							</tr>
-							<tr>
-								<td>Lugar</td>
-								<td>{{thisEncounter.place}}</td>
-							</tr>
-							<tr>
-								<td>Cómo llegar?</td>
-								<td>{{thisEncounter.directions}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="col m6">
-					<h5>Comensales</h5>
-					<div class="row">
-						<div class="chip" ng-repeat="player in thisEncounter.players">
-						    <img ng-src="{{player.photoURL}}" alt="Contact Person">
-						    <a ng-href="#!/usuario/{{player.userKey}}">{{player.name}}</a>
-							<i class="myClose material-icons" ng-if="adminserv.userIsMe(player.userKey) || iAmAdmin" ng-click="removePlayer(player)">close</i>
-						</div>
-					</div>
-					<div class="chip" ng-repeat="puesto in thisEncounter.availableSeats">
-					    <img ng-src="{{puesto.photoURL}}" >
-					    <a ng-click="rsvp()">{{puesto.name}}</a>
-					</div>
-					
-					<div ng-if="iAmAdmin">
-						<h5>Jugadores en fila</h5>
-						<div class="divider"></div>
-						<div class="chip" ng-repeat="player in thisEncounter.queue">
-						    <img ng-src="{{player.photoURL}}" alt="Contact Person">
-						    <a ng-href="#!/usuario/{{player.userKey}}">{{player.name}}</a>
-							<i class="myClose material-icons" ng-click="removeQueuer(player)" ng-if="adminserv.userIsMe(player.userKey) || iAmAdmin">close</i>
-							<i class="myClose material-icons" ng-click="acceptQueuer(player)" ng-if="adminserv.userIsMe(player.userKey) || iAmAdmin">done</i>
-						</div>
-					</div>
-					<h5>Discusión</h5>
-					<div class="divider"></div>
-					<div class="row">
-						<div class="col m10">
-							<input placeholder="Comenta algo..." ng-model="newMessage.text"/>
-						</div>
-						<div class="col m2">
-							<a class="btn " ng-click="addMessage()"><i class="material-icons">send</i></a>
-						</div>
-					</div>
-					<div class="row">
-						<ul class="collection">
-						    <li class="collection-item avatar" ng-repeat="message in thisEncounter.discussion | orderBy:'-'">
-								<img ng-src="{{message.author.photoURL}}" alt="" class="circle">
-								<span class="title"><a ng-href="#!/usuario/{{message.author.userKey}}">{{message.author.name}} {{message.author.lastNames}}</a> dice:</span>
-								<p class="grey-text">{{adminserv.interpretDateMessage(message.date)}}</p>
-								<p>{{message.text}}</p>
-						    </li>
-						</ul>
-					</div>
-					
-					
-				</div>
-			</div>
-					
-					<!--
-					<div class="col s12 m4" ng-repeat="player in thisEncounter.players">
-						<div class="card small">
-							<div class="card-image">
-								<img ng-src="{{player.photoURL}}">
-							</div>
-							<div class="card-content">
-								<span class="activator grey-text text-darken-4">{{player.name}}<i class="material-icons right">more_vert</i></span>
-							</div>
-							<div class="card-reveal">
-      							<span class="card-title grey-text text-darken-4">{{player.name}}<i class="material-icons right">close</i></span>
-      							<ul>
-      								<li><a href="#!">Remover jugador</a></li>
-      								<li><a href="#!">Ver Perfil</a></li>
-      							</ul>
-    						</div>
-							<div class="card-action">
-								<a>Ver perfil</a>
-							</div>
-						</div>
-					</div>
-					-->
-				
+	</div>
+	<div class="divider"></div>
+	<h4 class="center-align">Comensales</h4>
+	
+	<div class="row">
+		<div class="chip" ng-repeat="player in thisEncounter.players">
+		    <img ng-src="{{player.photoURL}}" alt="Contact Person">
+		    <a ng-href="#!/usuario/{{player.userKey}}">{{player.name}}</a>
+			<i class="myClose material-icons" ng-if="adminserv.userIsMe(player.userKey) || iAmAdmin" ng-click="removePlayer(player)">close</i>
 		</div>
+	</div>
+	<div class="chip" ng-repeat="puesto in thisEncounter.availableSeats">
+	    <img ng-src="{{puesto.photoURL}}" >
+	    <a ng-click="rsvp()">{{puesto.name}}</a>
+	</div>
+	<div class="divider"></div>
+	<h4 class="center-align">Discusión</h4>
+	
+	<div class="row">
+		<div class="col m10">
+			<input placeholder="Comenta algo..." ng-model="newMessage.text"/>
+		</div>
+		<div class="col m2">
+			<a class="btn " ng-click="addMessage()"><i class="material-icons">send</i></a>
+		</div>
+	</div>
+	<div class="row">
+		<ul class="collection">
+		    <li class="collection-item avatar" ng-repeat="message in thisEncounter.discussion | orderBy:'-'">
+				<img ng-src="{{message.author.photoURL}}" alt="" class="circle">
+				<span class="title"><a ng-href="#!/usuario/{{message.author.userKey}}">{{message.author.name}} {{message.author.lastNames}}</a> dice:</span>
+				<p class="grey-text">{{adminserv.interpretDateMessage(message.date)}}</p>
+				<p>{{message.text}}</p>
+		    </li>
+		</ul>
 	</div>
 </div>

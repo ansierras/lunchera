@@ -41,6 +41,7 @@ angular.module('companion.userprof', ['ui.router'])
 	})
 
 	var hostKey = $stateParams.hostKey;
+	console.log(hostKey)
 	var refHost = firebase.database().ref('users/'+hostKey);
 	var objHost = $firebaseObject(refHost);
 	objHost.$loaded().then(function(){
