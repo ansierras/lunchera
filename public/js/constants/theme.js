@@ -1,12 +1,13 @@
 companion.constant('THEME',{
 	//***** NAVBAR THEME *************
 	navBarColor: ' light-blue',
-	navBarColorSub: ' cyan darken-3',
+	navBarColorSub: ' cyan darken-4',
 	navFabColor: ' lime ',
 
-	importantContent: 'light-blue',
+	importantContent: 'cyan darken-4',
 
 	formColumnRight: 'blue-grey lighten-5',
+	detailBar: 'blue-grey darken-3',
 
 
 	//*********** LOGO & SIDENAV *************

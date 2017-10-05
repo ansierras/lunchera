@@ -48,37 +48,31 @@
   	</div>
   	<div class="parallax"><img ng-src="{{host.coverImg}}" /></div>
 </div>
-<div class="row white-text valign-wrapper" style="margin-bottom: 0px;" ng-class="theme.importantContent" ng-show="!loadingUser">
+<div class="row white-text valign-wrapper" style="margin-bottom: 0px;" ng-class="theme.navBarColorSub" ng-show="!loadingUser">
 	<div class="col m6 offset-m3">
 		<div class="col m4 left-stat" ng-class="theme.stats3">
-			<h4 class="center">{{host.collection.owned.length}}</h4>
-			<p class="center">Juegos en biblioteca</p>
+			<h4 class="center">4.8</h4>
+			<p class="center">Calificación</p>
 		</div>
 		<div class="col m4 center-stat" ng-class="theme.stats2">
 			<h4 class="center">20</h4>
-			<p class="center">Partidas registradas</p>
+			<p class="center">Experiencias</p>
 		</div>
 		<div class="col m4 right-stat" ng-class="theme.stats1">
 			<h4 class="center">34</h4>
-			<p class="center">Kasdh</p>
+			<p class="center">Kalash Kalash</p>
 		</div>
 	</div>
 	<div class="col m2 valign">
-		<a class="waves-effect waves-light btn-large" ng-show="!userIsMe" ng-click="openMessageModal()" ng-class="theme.navFabColor"><i class="material-icons right">mail</i>Enviar un mensaje</a>
+		<a class="waves-effect waves-light btn-large" ng-show="userIsMe" ng-click="openMessageModal()" ng-class="theme.navFabColor"><i class="material-icons right">mail</i>Enviar un mensaje</a>
 	</div>
 </div>
+ 
 <div class="container">
 	<div class="row" ng-show="!modeEdit && !loadingUser">
 		<div class="col m4 l4 blue-grey lighten-5" >
 			<div class="col m12">
-				<div class="col m12">
-					<div class="card-panel" ng-class="theme.importantContent">
-						<span class="white-text">{{host.bio}}</span>
-					</div>
-				</div>
-			</div>
-			<div class="col m12">
-				<div class="row">
+				<div class="row" style="margin-top: 20px">
 					<div class="col m2">
 						<i class="material-icons left">location_on</i>
 					</div>
@@ -116,7 +110,9 @@
 			</div>	
 		</div>
 		<div class="col m8 ">
-			
+			<h5 class="center-align">{{host.name}} {{host.lastNames}}</h5>
+			<div class="divider"></div>
+			<p>{{host.bio}}</p>
 		</div>
 	</div>
 </div>

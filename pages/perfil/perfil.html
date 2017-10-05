@@ -23,9 +23,11 @@
 </div>
 
 <ul id="dropdownPerfil" class="dropdown-content">
+	<!--
 	<li><a href="#!">Ver mi perfil</a></li>
 	<li><a href="#!">Editar mi perfil</a></li>
 	<li class="divider" ng-if="user.status=='admin'"></li>
+    -->
 	<li ng-if="user.status=='admin'"><a href="#!/adminsite">Admin Site</a></li>
 	<li class="divider"></li>
 	<li><a ng-click="logout()">Cerrar Sesión</a></li>
@@ -91,7 +93,7 @@
   	</div>
   	
 </div>
-
+<!--
 <div class="row white-text" style="margin-bottom: 0px;" ng-class="theme.importantContent" ng-show="!loadingUser">
 	<div class="container">
 		<div class="col m8 offset-m2">
@@ -110,7 +112,7 @@
 		</div>
 	</div>
 </div>
-
+-->
 <div class="container">
 	<div class="row" ng-show="!modeEdit && !loadingUser">
 		<div class="col m4 l4 blue-grey lighten-5" style="height: 100%">

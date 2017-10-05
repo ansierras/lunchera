@@ -17,7 +17,58 @@
 		<i class="material-icons">add</i>
 	</a>
 </div>
+<div class="container">
+	<h4>Ofertas en {{currentCity}}</h4>
+	<div class="divider"></div>
+	<div class="">
+		<div class="row">
+			<div class="col m4 l4 black z-depth-2" ng-repeat="encounter in encounterList" style="margin-right: 20px; margin-left: 20px">
+				<div class="row" style="margin-bottom: 0px">
+					<div class="listItemImg" ng-style="{'background-image':'url('+encounter.coverImg+')'}" ></div>
+				</div>
+				
+				<div class=" row white-text" style="margin: 20px">
+					<h6 class="light-blue-text avenirblack">{{encounter.name.toUpperCase()}}</h6>
+					<p class="avenir miP">{{adminserv.interpretDate(encounter.date)}}</p>
+					<p class="avenir miP">En {{encounter.place}}</p>
+					<p class="avenir miP"> De {{encounter.startingAt}} a {{encounter.endingAt}}</p>
+					<p class="avenirbold miP">Para {{encounter.maxPlayers}} personas</p>
+				</div>
+				<div class="row center-align">
+					<a class="waves-effect waves-light btn light-blue avenir" ng-href="#!/mesa/{{encounter.country}}/{{encounter.$id}}">Ver detalles</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--
+	<div class="listItem z-depth-2" ng-repeat="encounter in encounterList " ng-style="{'background-image':'url('+encounter.coverImg+')'}">
+		<div class="row" style="margin-left: 0px">
+		<div class="itemContent white-text center-align col m4 l4" >
+			<h5 class="center-align">{{encounter.name}}</h5>
+			<p class="center-align">{{adminserv.interpretDate(encounter.date)}}</p>
+			<p>En {{encounter.place}}</p>
+			<p> De {{encounter.startingAt}} a {{encounter.endingAt}}</p>
+			<p>Para {{encounter.maxPlayers}} personas</p>
+			<div class="row" style="padding-left: 20px">
+				<div class="col m3 l3">
+					<img ng-src="{{encounter.host.photoURL}}" class=" responsive-img z-depth-2">
+				</div>
+				<div class="col m9 l9 valign-wrapper">
+					<p class="valign">{{encounter.host.name}} {{encounter.host.lastNames}}
+					</p>
+				</div>
+			</div>
+			<a class="waves-effect waves-teal btn-flat white-text" ng-href="#!/mesa/{{encounter.country}}/{{encounter.$id}}">Ver detalles</a>
+		</div>
+		<div class="col m8 l8 right-align" style="bottom: 0px">
+			
+		</div>
+		</div>
+	</div>
+</div>
+-->
 
+<!--
 <div class="row" style="height: 100%;">
 	<div class="col m3 grey" style="min-height:600px" >
 		<div class="row">
@@ -30,6 +81,12 @@
 			      <input type="range" id="test5" min="0" max="100" />
 			    </p>
 		</div>
+	</div>
+	<div class="col m9">
+		<div class="" ng-repeat="encounter in encounterList ">
+			<img ng-src="{{encounter.coverImg}}" style="width: 100%">
+		</div>
+		
 	</div>
 	<div class="col m9">
 		<div class="container">
@@ -77,6 +134,7 @@
 		</div>
 	</div>
 </div>
+-->
 <!--
 <div class="container">
 	<h4>Lista de Mesas Públicas en {{currentCity}}</h4>

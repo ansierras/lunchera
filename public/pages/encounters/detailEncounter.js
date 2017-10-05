@@ -38,6 +38,7 @@ angular.module('companion.detailEncounter', ['ui.router'])
 	$('.dropdown-button').dropdown();
 	$('.tooltipped').tooltip({delay: 50});
 	$('.parallax').parallax();
+	$('.modal').modal();
 	//************Necesario para el MENU!!! ******************
 	$scope.menu=MENU_ITEMS;
 	$scope.menuClasses=['active','','','']
@@ -180,5 +181,8 @@ angular.module('companion.detailEncounter', ['ui.router'])
 			$scope.thisEncounter.$save()
 		}
 		$scope.newMessage.text = "";
+	}
+	$scope.confirmDelete = function(){
+		$('#modalDelete').modal('open');
 	}
 }])

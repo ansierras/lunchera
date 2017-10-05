@@ -3,18 +3,45 @@
     font-family: "SofiaProLight";
     src: url('SofiaProLight.otf') format("truetype");
 }
-
+@font-face {
+    font-family: "belladonna";
+    src: url('belladonna.ttf') format("truetype");
+}
+@font-face {
+    font-family: "avenir";
+    src: url('avenir.otf') format("truetype");
+}
+@font-face {
+    font-family: "avenirblack";
+    src: url('avenirblack.otf') format("truetype");
+}
+@font-face {
+    font-family: "avenirbold";
+    src: url('avenirbold.otf') format("truetype");
+}
 
 html {
-  font-family: "SofiaProLight";
+  font-family: "avenir";
 }
 div {
-  font-family: "SofiaProLight";
+  font-family: "avenir";
 }
  
 
 a{
 	cursor: pointer;
+}
+
+.avenir{
+  font-family: "avenir";
+}
+
+.avenirblack{
+  font-family: "avenirblack";
+}
+
+.avenirbold{
+  font-family: "avenirbold";
 }
 
 .waves-effect.waves-lime .waves-ripple {
@@ -32,6 +59,10 @@ a{
 	min-height: 100vh;
 	width: 100%;
 	background-image: url('../assets/bogbckgr.jpeg');
+}
+
+.miP{
+  margin: 0px;
 }
 
 .profImg{
@@ -102,9 +133,20 @@ a{
   background-position: center center;
   margin-top: 30px;
 }
+
+.listItem2{
+  padding: 0px
+}
+
 .listItem a{
   right: 0px;
   bottom: 0px
+}
+.listItemImg {
+  height:180px;
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;
 }
 
 .itemContent{
@@ -113,7 +155,15 @@ a{
   background-color: rgba(0,0,0,0.67);
   padding-top: 20px;
 }
-
+.belladonna{
+  font-family: "belladonna";
+}
+.lunchefCard{
+  background-image: url('../assets/lunchefBck2.jpg');
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
 /************ LANDING SITE *************/
 .parallax-container {
   min-height: 380px;

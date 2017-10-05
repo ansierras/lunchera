@@ -5,7 +5,6 @@
 				<img src="./assets/logoLunch.png">
 			</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
-
 	        	<li ng-repeat="(index, itemMenu) in menu" ng-class="menuClasses[index]"><a ng-click="goto(itemMenu.linkTo)"><i class="material-icons left">{{itemMenu.icon}}</i>{{itemMenu.name}}</a></li>
 	        	<li><a href="#!" style="height: 64px;" class="valign-wrapper dropdown-button" data-activates="dropdownPerfil">Mi Perfil<i class="material-icons right">arrow_drop_down</i> <img ng-src="{{user.photoURL}}" alt="" class="circle navBarImg white valign"/></a></li>
 	      	</ul>
@@ -27,13 +26,15 @@
 		</div>
 	</div>
 </div>
-<div class="parallax-container valign-wrapper" style="max-height: 200px" ng-show="!loadingEncounter">
-  	<div class="section no-pad-bot">
-    	
+<div class="parallax-container " style="max-height: 200px" ng-show="!loadingEncounter">
+  	<div class="section no-pad-bot center-align">
+    	<h2 class="center-align belladonna" style="text-shadow: 2px 2px #0a0a0a;">{{thisEncounter.name}} </h2>
+
+    	<a class="waves-effect waves-light btn purple" style="margin-top: 100px">RESERVAR</a>
   	</div>
   	<div class="parallax"><img ng-src="{{thisEncounter.coverImg}}" alt="Unsplashed background img 3"></div>
 </div>
-<div class="row white-text" style="margin-bottom: 0px;" ng-class="theme.importantContent" ng-show="!loadingEncounter">
+<div class="row white-text" style="margin-bottom: 0px;" ng-class="theme.detailBar" ng-show="!loadingEncounter">
 	<div class="row"></div>
 	<div class="col m11 offset-m1">
 		
@@ -58,44 +59,44 @@
 			</div>
 		</div>
 		<div class="col m4">
+			<!--
 			<span class="new badge lime tooltipped" data-position="bottom" data-delay="50" data-tooltip="Este evento aparece en la lista pública de tu ciudad" ng-show="thisEncounter.privacy=='public'" data-badge-caption="evento público"></span><span class="new badge red" ng-show="thisEncounter.privacy=='private'" data-badge-caption="evento privado"></span>
-		</div>
-	</div>
-</div>
-<div class="container" ng-show="!loadingEncounter">
-	<h4 class="center-align">{{thisEncounter.name}} <a class="waves-effect waves-lime btn-flat" ng-if="iAmAdmin" ng-click="deleteEncounter2()">Eliminar mesa</a></h4>
-	<div class="row center-align">
-		<div class="col m6 offset-m3 l6 offset-l3">{{thisEncounter.description}}</div>
-	</div>
-	<p class="center-align">Comienza a las: {{thisEncounter.startingAt}} </p>
-	<p class="center-align">Termina a las: {{thisEncounter.endingAt}} </p>
-	<div class="divider"></div>
-	<h4 class="center-align">¿Dónde?</h4>
-	<p class="center-align">{{thisEncounter.place}}</p>
-	<p class="center-align">{{thisEncounter.directions}}</p>
-	<div class="divider"></div>
-	<h4 class="center-align">LunChef</h4>
-	<div class="row">
-		<div class="col s12 m6 l6 offset-m3 offset-l3">
-			<div class="card" style="padding-top:20px">
-				<div class="row">
-					<div class="col m6 offset-m3 l6 offset-l3">
-						<img ng-src="{{organizer.photoURL}}" class="circle responsive-img z-depth-2" >
-					</div>
-					
+			-->
+			<div class="row">
+				<div class="col m1">
+					<i class="material-icons left">group</i>
 				</div>
-				<div class="card-stacked">
-					<div class="card-content" style="padding-top: 0px">
-						<h5 class="center-align">{{organizer.name}} {{organizer.lastNames}}</h5>
-						<p>{{organizer.bio}}</p>
-						<div class="row center-align" style="margin-top: 30px">
-							<a class="waves-effect waves-light btn-large lime" ng-href="#!/usuario/{{thisEncounter.admin}}" style="border-radius: 27px">Ver perfil</a>
-						</div>
-					</div>
+				<div class="col m11">
+					puestos disponibles: {{thisEncounter.availableSeats.length}} de {{thisEncounter.maxPlayers}}
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="row" style="margin-top: 10px" ng-show="!loadingEncounter">
+	<div class="col m8 l8">
+		<div class="container">
+			<h4>Descripción</h4>
+			<p>{{thisEncounter.description}}</p>
+		</div>
+	</div>
+	<div class="col m4 l4 lunchefCard" >
+		<div class="row" style="margin-top: 20px">
+			<a class="waves-effect waves-light btn light-blue" >{{organizer.name}} {{organizer.lastNames}}</a>
+		</div>
+		<div class="row">
+			<div class="col m4 l4">
+				<img class="responsive-img" ng-src="{{organizer.photoURL}}">
+			</div>
+			<div class="col m8 l8">
+				<h4 class="avenirbold miP">Lunchef</h4>
+				<p class="avenirbook miP">{{thisEncounter.place}}, {{adminserv.getContextById('name','city',[organizer.countryId, organizer.cityId])}}</p>
+				<a class="waves-effect waves-lime btn-flat" ng-if="iAmAdmin" ng-click="confirmDelete()">Eliminar mesa</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container" ng-show="!loadingEncounter">
 	<div class="divider"></div>
 	<h4 class="center-align">Comensales</h4>
 	
@@ -130,5 +131,15 @@
 				<p>{{message.text}}</p>
 		    </li>
 		</ul>
+	</div>
+</div>
+<!-- Modal Structure -->
+<div id="modalDelete" class="modal">
+	<div class="modal-content">
+		<h4>OJO!</h4>
+		<p>De verdad quieres eliminar esta mesa? Se perderán todos los datos.</p>
+	</div>
+	<div class="modal-footer">
+		<a ng-click="deleteEncounter()" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 	</div>
 </div>
