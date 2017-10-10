@@ -18,6 +18,7 @@ angular.module('companion.admin', ['ui.router'])
 					if (adminserv.getUserStatus() == 'admin') {
 						return true
 					}else{
+						console.log("user not admin")
 						$state.go("perfil");
 					};
 				  
@@ -58,61 +59,12 @@ angular.module('companion.admin', ['ui.router'])
 	$scope.workingFlushEMarket = false;
 
 	$scope.progress = {width: '0%'}
-
-	// var users = ['-Ko_WXrF2UXRa8K7CTOt','-KobkVmPXKf_Wmhk0PlP','-KobrC41U19Snr5bd1ZP'];
-	// var userRefs = [];
-	// var usersObjects = [];
-	// $scope.usersComplete = [];
-	// for (var i = users.length - 1; i >= 0; i--) {
-		
-	// 	userRefs[i] = firebase.database().ref('users/'+users[i]+'/short');
-	// 	usersObjects[i] = $firebaseObject(userRefs[i]);
-	// 	usersObjects[i].$loaded().then(function(){
-	// 		//$scope.usersComplete.push(usersObjects[i]);
-	// 	})
-	// };
-	// $scope.usersComplete = usersObjects
 	var usersRef = firebase.database().ref('users');
 	var usersList = $firebaseArray(usersRef);
 	usersList.$loaded().then(function(){
 		$scope.users = usersList;
 		
 	})
-
-	$scope.gamesDB = function(){
-		var gamesAdded = 0;
-		$scope.workingGameDB = true;
-		var pendRef = firebase.database().ref('games/pending');
-  		var pendList = $firebaseArray(pendRef);
-  		pendList.$loaded().then(function(pendingList) {
-  			var pendLength = pendList.length;
-  			var generalRef = firebase.database().ref('games/general');
-  			var generalList = $firebaseArray(generalRef);
-  			generalList.$loaded().then(function(result){
-  				var found = false;
-  				var progress = 0;
-  				for(var pending of pendList){
-  					found = false;
-  					for(var general of generalList){
-  						if (pending.gameId == general.gameId) {
-  							found = true;
-  							break;
-  						}
-  					}
-  					if (!found) {
-  						generalList.$add(pending);
-  						gamesAdded++;
-  					}
-  					pendList.$remove(pending);
-  					progress++;
-  					$scope.progress = {width: Math.round((progress/pendLength)*100)+'%'}
-  				}
-  				var stringNewGames = "Se agregaron "+gamesAdded+" juegos a la base de datos"
-  				Materialize.toast(stringNewGames, 8000);
-  			})
-  			
-  		})
-	}
 
 	$scope.flushEncounters = function(){
 		var maxDur = encounterDuration*86400000;
@@ -130,7 +82,9 @@ angular.module('companion.admin', ['ui.router'])
 			encounterLists[i].$loaded().then(function(result){
 				for (var j = result.length - 1; j >= 0; j--) {
 					var encDate = new Date(result[j].date)
+					console.log(encDate)
 					if (today-encDate>=maxDur) {
+						console.log("should erase")
 						result.$remove(result[j])
 					}
 				};
@@ -138,57 +92,9 @@ angular.module('companion.admin', ['ui.router'])
 				$scope.progress = {width: Math.round((progress/PLACES.length)*100)+'%'}
 			})
 		};
-
-		// var refStr = 'colombia/encounters';
-		// var encountersRef = firebase.database().ref(refStr);
-		// var encountersList = $firebaseArray(encountersRef);
-		// encountersList.$loaded().then(function(){
-		// 	for (var encounter of encountersList) {
-		// 		var encDate = new Date(encounter.date)
-		// 		if (today-encDate >= maxDur) {
-		// 			encountersList.$remove(encounter)
-		// 		}
-		// 	}
-		// })
 	}
 
-	$scope.flushMarket = function(){
-		var maxDur = marketDuration*86400000;
-		$scope.workingFlushMarket = true;
-		var today = new Date();
-		var marketRefs =[];
-		var marketLists = [];
-		var progress = 0;
-		$scope.progress = {width: '0%'}
-		for (var i = PLACES.length - 1; i >= 0; i--) {
-			var refStr = PLACES[i].ref+'/market' 
-			marketRefs[i] = firebase.database().ref(refStr);
-			marketLists[i] = $firebaseArray(marketRefs[i]);
-			marketLists[i].$loaded().then(function(result){
-				for (var j = result.length - 1; j >= 0; j--) {
-					var offDate = new Date(result[j].date)
-					if (today-offDate>=maxDur) {
-						console.log(result[j])
-						result.$remove(result[j])
-					}
-				};
-				progress++;
-				$scope.progressMarket = {width: Math.round((progress/PLACES.length)*100)+'%'}
-			})
-		};
-		// var refStr = 'colombia/market';
-		// var marketRef = firebase.database().ref(refStr);
-		// var marketList = $firebaseArray(marketRef);
-		// marketList.$loaded().then(function(){
-		// 	for (var offer of marketList) {
-		// 		var offDate = new Date(offer.date)
-		// 		if (today-offDate>=maxDur) {
-		// 			console.log(today-offDate)
-		// 			marketList.$remove(offer)
-		// 		}
-		// 	}
-		// })
-	}
+	
 
 	$scope.loadGeneral = function(){
 		var gamesRef = firebase.database().ref('games/general').orderByChild("name");

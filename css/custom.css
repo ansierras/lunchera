@@ -9,7 +9,7 @@
 }
 @font-face {
     font-family: "avenir";
-    src: url('avenir.otf') format("truetype");
+    src: url('avenirbook.otf') format("truetype");
 }
 @font-face {
     font-family: "avenirblack";
@@ -59,6 +59,9 @@ a{
 	min-height: 100vh;
 	width: 100%;
 	background-image: url('../assets/bogbckgr.jpeg');
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  background-position: center center;
 }
 
 .miP{
