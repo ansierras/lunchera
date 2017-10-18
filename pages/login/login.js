@@ -1,15 +1,26 @@
 'use strict';
- 
+
 angular.module('companion.login', ['ui.router'])
- 
-// Declared route 
+
+// Declared route
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
     $stateProvider
 
     .state('login', {
 		url: '/login',
 		templateUrl:'pages/login/login.html',
-	 	controller: 'loginCtrl'	
+	 	controller: 'loginCtrl',
+    resolve: {
+      "userIsLogged": ["adminserv", "$stateProvider", function(adminserv, $state) {
+        console.log("resolving login")
+        var firebaseUser = adminserv.getUserKey();
+        if (!firebaseUser) {
+          return true
+          console.log("no user")
+        } else {
+          $state.go("perfil");
+        }
+      }]}
 	})
 
 }])

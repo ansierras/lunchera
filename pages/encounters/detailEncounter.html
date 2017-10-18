@@ -37,7 +37,7 @@
 <div class="row white-text" style="margin-bottom: 0px;" ng-class="theme.detailBar" ng-show="!loadingEncounter">
 	<div class="row"></div>
 	<div class="col m11 offset-m1">
-		
+
 		<div class="col m4">
 			<div class="row">
 				<div class="col m1">
@@ -96,24 +96,42 @@
 		</div>
 	</div>
 </div>
+<div class=" section white-text" ng-class="theme.navBarColor" ng-show=" userIsPlayer && user.paymentStatus!='payed'">
+	<div class="container">
+		<div class="row">
+			<div class="col m4 l4">
+				<p>Puedes pagar ahora mismo, escaneando este código en tu aplicación de Bancolombia. No olvides enviarnos el comprobante! :O</p>
+			</div>
+			<div class="col m8 l8">
+				<h3>YA CASI LO TIENES!</h3>
+				<h5>Ahora debes pagar tu reserva. Por favor haz una transferencia a la cuenta de Ahorros de Bancolombia Número XXXXXXXXXXX y envíanos el comprobante a ljsdflkjdf@lksjdf.com o al whatsapp</h5>
+				<a class="btn" href="https://api.whatsapp.com/send?phone=521551234567&text=Me%20gustaría%20saber%20el%20precio%20del%20coche">Whatsapp</a>
+				
+
+				<h5>Tan pronto recibamos tu pago, se confirmará tu reserva :)</h5>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="container" ng-show="!loadingEncounter">
 	<div class="divider"></div>
 	<h4 class="center-align">Comensales <a class="waves-effect waves-lime btn-flat" ng-if="iAmAdmin" ng-click="">Eliminar mesa</a></h4>
-	
+
 	<div class="row">
-		<div class="chip" ng-repeat="player in thisEncounter.players">
-		    <img ng-src="{{player.photoURL}}" alt="Contact Person">
-		    <a ng-href="#!/usuario/{{player.userKey}}">{{player.name}}</a>
-			<i class="myClose material-icons" ng-if="adminserv.userIsMe(player.userKey) || iAmAdmin" ng-click="removePlayer(player)">close</i>
-		</div>
+			<div class="chip" ng-repeat="player in thisEncounter.players">
+			    <img ng-src="{{player.photoURL}}" alt="Contact Person">
+			    <a ng-href="#!/usuario/{{player.userKey}}">{{player.name}}</a>
+				<i class="myClose material-icons" ng-if="adminserv.userIsMe(player.userKey) || iAmAdmin" ng-click="removePlayer(player)">close</i>
+			</div>
+			<div class="chip" ng-repeat="puesto in thisEncounter.availableSeats">
+			    <img ng-src="{{puesto.photoURL}}" >
+			    <a ng-click="rsvp()">{{puesto.name}}</a>
+			</div>
 	</div>
-	<div class="chip" ng-repeat="puesto in thisEncounter.availableSeats">
-	    <img ng-src="{{puesto.photoURL}}" >
-	    <a ng-click="rsvp()">{{puesto.name}}</a>
-	</div>
+
 	<div class="divider"></div>
 	<h4 class="center-align">Discusión</h4>
-	
+
 	<div class="row">
 		<div class="col m10">
 			<input placeholder="Comenta algo..." ng-model="newMessage.text"/>

@@ -151,11 +151,17 @@ angular.module('companion.detailEncounter', ['ui.router'])
 		for (var i = 0; i < $scope.thisEncounter.players.length; i++) {
 			if($scope.thisEncounter.players[i].userKey == player.userKey){
 				$scope.thisEncounter.players.splice(i,1);
+				$scope.thisEncounter.availableSeats.push({
+					type: 'free',
+					name: "Reservar puesto",
+					photoURL: "./assets/default-avatar.png"
+				})
+				$scope.userIsPlayer = false;
 				break;
 			}
 		}
 		$scope.thisEncounter.$save().then(function(){
-			Materialize.toast('El usuario ha sido retirado de la lista de jugadores', 4000)
+			Materialize.toast('El usuario ha sido retirado de la lista de invitados', 4000)
 		}, function(error) {
   			console.log("Error:", error);
 		})

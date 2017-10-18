@@ -1,8 +1,8 @@
 'use strict';
- 
+
 angular.module('companion.register', ['ui.router'])
- 
-// Declared route 
+
+// Declared route
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
     $stateProvider
 
@@ -11,7 +11,18 @@ angular.module('companion.register', ['ui.router'])
 		views:{
 			'': {
 				templateUrl:'pages/register/register.html',
-			 	controller: 'registerCtrl'	}
+			 	controller: 'registerCtrl',
+        resolve: {
+    			"userIsLogged": ["adminserv", "$state", function(adminserv, $state) {
+            var firebaseUser = adminserv.getUserKey();
+    				if (!firebaseUser) {
+    				  return true
+    				} else {
+    				  $state.go("perfil");
+    				}
+          }]}
+
+        }
 		}
 	})
 
@@ -24,7 +35,7 @@ angular.module('companion.register', ['ui.router'])
 	$scope.cities = [];
 	$scope.newUser = {countryId: 1, cityId: 1, communeId: 11};
 	$('select').material_select();
-	
+
 
 	$scope.createAccount = function(){
 		$scope.loading = true;
