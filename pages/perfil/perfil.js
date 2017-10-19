@@ -32,7 +32,8 @@ angular.module('companion.perfil', ['ui.router'])
 }])
 
 .controller('perfilCtrl', ['Auth','currentAuth','$scope','$state','$rootScope','$firebaseArray','$firebaseObject','MENU_ITEMS','THEME', 'COLLECTION', 'PLACES', '$http','adminserv', function(Auth, currentAuth,$scope, $state, $rootScope, $firebaseArray, $firebaseObject, MENU_ITEMS, THEME, COLLECTION, PLACES, $http, adminserv) {
-	
+	$scope.visibleSection=[true, false, false, false];
+	$scope.sectionClasses=["my-side-nav-selected", "", "", ""];
 	$scope.loadingUser = true;
 	$scope.loadingEncounterList = true;
 	$scope.synching = false;
@@ -271,6 +272,12 @@ angular.module('companion.perfil', ['ui.router'])
 				Materialize.toast('Tu mensaje ha sido enviado!', 4000)
 			});
 		};
+	}
+	$scope.selectSection = function(index){
+		$scope.visibleSection=[false, false, false, false, false];
+		$scope.visibleSection[index]=true;
+		$scope.sectionClasses = ["","","",""]
+		$scope.sectionClasses[index]="my-side-nav-selected"
 	}
 
 

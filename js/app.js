@@ -23,7 +23,7 @@ var companion = angular.module('companion', [
 
 companion.config(function($stateProvider, $urlRouterProvider) {
     
-    $urlRouterProvider.otherwise('/perfil');
+    $urlRouterProvider.otherwise('/login');
 
     var config = {
         apiKey: "AIzaSyBRJBXEK8PY-_LPTozzkwgn6YIsoadltG0",

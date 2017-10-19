@@ -96,20 +96,27 @@
 		</div>
 	</div>
 </div>
-<div class=" section white-text" ng-class="theme.navBarColor" ng-show=" userIsPlayer && user.paymentStatus!='payed'">
+<div class=" section white-text" ng-class="theme.navBarColor" ng-show=" userIsPlayer && userAsPlayer.status=='payment_pending'">
 	<div class="container">
 		<div class="row">
+			<h3>YA CASI LO TIENES!</h3>
+			<p>Ahora debes pagar tu reserva. Sigue estos pasos para confirmar tu pago y tu puesta en esta experiencia :)</p>
+		</div>
+		<div class="row">
 			<div class="col m4 l4">
-				<p>Puedes pagar ahora mismo, escaneando este código en tu aplicación de Bancolombia. No olvides enviarnos el comprobante! :O</p>
+				<h4>Paso 1</h4>
+				<p>Haz una transferencia a la cuenta de AHORROS Bancolombia número XXXXXXXX por el valor total de tu reserva</p>
 			</div>
-			<div class="col m8 l8">
-				<h3>YA CASI LO TIENES!</h3>
-				<h5>Ahora debes pagar tu reserva. Por favor haz una transferencia a la cuenta de Ahorros de Bancolombia Número XXXXXXXXXXX y envíanos el comprobante a ljsdflkjdf@lksjdf.com o al whatsapp</h5>
+			<div class="col m4 l4">
+				<h4>Paso 2</h4>
+				<p>Envíanos el comprobante de pago a ljsdflkjdf@lksjdf.com o al whatsapp</p>
 				<a class="btn" href="https://api.whatsapp.com/send?phone=521551234567&text=Me%20gustaría%20saber%20el%20precio%20del%20coche">Whatsapp</a>
-				
-
-				<h5>Tan pronto recibamos tu pago, se confirmará tu reserva :)</h5>
 			</div>
+			<div class="col m4 l4">
+				<h4>Paso 3</h4>
+				<p>Una vez tu pago sea verificado, LISTO! Prepárate para tener una experiencia LunchEra.</p>
+			</div>
+			
 		</div>
 	</div>
 </div>

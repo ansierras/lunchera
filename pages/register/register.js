@@ -8,24 +8,20 @@ angular.module('companion.register', ['ui.router'])
 
     .state('register', {
 		url: '/registro',
-		views:{
-			'': {
-				templateUrl:'pages/register/register.html',
-			 	controller: 'registerCtrl',
-        resolve: {
-    			"userIsLogged": ["adminserv", "$state", function(adminserv, $state) {
-            var firebaseUser = adminserv.getUserKey();
-    				if (!firebaseUser) {
-    				  return true
-    				} else {
-    				  $state.go("perfil");
-    				}
-          }]}
-
-        }
-		}
+		templateUrl:'pages/register/register.html',
+		controller: 'registerCtrl',
+		resolve: {
+			"userIsLogged": ["adminserv", "$state", function(adminserv, $state) {
+				console.log("resolving register")
+    			var firebaseUser = adminserv.getUserKey();
+				if (!firebaseUser) {
+			  		return true
+				} else {
+			  		$state.go("perfil");
+				}
+  			}]
+  		}	
 	})
-
 }])
 
 .controller('registerCtrl', ['adminserv','$scope','$state','$rootScope','$firebaseArray','$firebaseObject','Auth','PLACES', function(adminserv,$scope, $state, $rootScope, $firebaseArray, $firebaseObject, Auth, PLACES) {

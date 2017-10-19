@@ -85,6 +85,7 @@ angular.module('companion.detailEncounter', ['ui.router'])
 					var player=$scope.thisEncounter.players[i]
 					if(player.userKey == userKey){
 						$scope.userIsPlayer = true
+						$scope.userAsPlayer = player;
 						break;
 					}
 				}
@@ -113,12 +114,14 @@ angular.module('companion.detailEncounter', ['ui.router'])
 			$scope.thisEncounter.players.push({
 				name: $scope.user.name + ' ' + $scope.user.lastNames,
 				photoURL: $scope.user.photoURL,
-				userKey: userKey
+				userKey: userKey,
+				status: "payment_pending"
 			})
 			$scope.thisEncounter.warning = true;
 			$scope.thisEncounter.$save().then(function(){
 				if (adminserv.userIsMe(userKey)) {
 					$scope.userIsPlayer = true;
+					$scope.userAsPlayer = $scope.thisEncounter.players[$scope.thisEncounter.players.length-1]
 				};
 				Materialize.toast('Has reservado un puesto para esta mesa', 4000)
 				$scope.enterQueueBtnClass="disabled";

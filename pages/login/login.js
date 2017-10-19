@@ -10,18 +10,18 @@ angular.module('companion.login', ['ui.router'])
 		url: '/login',
 		templateUrl:'pages/login/login.html',
 	 	controller: 'loginCtrl',
-    resolve: {
-      "userIsLogged": ["adminserv", "$stateProvider", function(adminserv, $state) {
-        console.log("resolving login")
-        var firebaseUser = adminserv.getUserKey();
-        if (!firebaseUser) {
-          return true
-          console.log("no user")
-        } else {
-          $state.go("perfil");
-        }
-      }]}
-	})
+	    resolve: {
+	      "userIsLogged": ["adminserv", "$state", function(adminserv, $state) {
+	        console.log("resolving login")
+	        var firebaseUser = adminserv.getUserKey();
+	        if (!firebaseUser) {
+	          return true
+	          console.log("no user")
+	        } else {
+	          $state.go("perfil");
+	        }
+	      }]}
+		})
 
 }])
 

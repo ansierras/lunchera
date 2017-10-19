@@ -167,6 +167,38 @@ a{
   background-repeat:   no-repeat;
   background-position: center center;
 }
+.profileBackground {
+  /*background-image: url('../assets/cooking2.jpeg');
+  background-size:     cover;                      
+  background-repeat:   no-repeat;
+  background-position: center center;*/
+  background: rgba(143,74,232,1);
+  background: -moz-linear-gradient(left, rgba(143,74,232,1) 0%, rgba(142,98,234,1) 21%, rgba(139,175,239,1) 89%, rgba(138,187,240,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(143,74,232,1)), color-stop(21%, rgba(142,98,234,1)), color-stop(89%, rgba(139,175,239,1)), color-stop(100%, rgba(138,187,240,1)));
+  background: -webkit-linear-gradient(left, rgba(143,74,232,1) 0%, rgba(142,98,234,1) 21%, rgba(139,175,239,1) 89%, rgba(138,187,240,1) 100%);
+  background: -o-linear-gradient(left, rgba(143,74,232,1) 0%, rgba(142,98,234,1) 21%, rgba(139,175,239,1) 89%, rgba(138,187,240,1) 100%);
+  background: -ms-linear-gradient(left, rgba(143,74,232,1) 0%, rgba(142,98,234,1) 21%, rgba(139,175,239,1) 89%, rgba(138,187,240,1) 100%);
+  background: linear-gradient(to right, rgba(143,74,232,1) 0%, rgba(142,98,234,1) 21%, rgba(139,175,239,1) 89%, rgba(138,187,240,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8f4ae8', endColorstr='#8abbf0', GradientType=1 );
+}
+.my-side-nav li{
+  float: none;
+  line-height: 48px;
+  cursor: pointer;
+  padding-left: 10px;
+}
+.my-side-nav-selected{
+  background-color: rgba(0,0,0,0.06);
+  border-right: 3px solid black;
+}
+
+.my-side-nav li:hover {
+  background-color: rgba(0,0,0,0.13);
+  display: block;
+  font-weight: 500;
+  height: 48px;
+  line-height: 48px;
+}
 /************ LANDING SITE *************/
 .parallax-container {
   min-height: 380px;
